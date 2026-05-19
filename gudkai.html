@@ -126,15 +126,25 @@ color:#00ff00;
 border:1px solid rgba(255,255,255,.1);
 border-radius:8px">
 
-<option value="BANK DOCUMENTS">
-BANK DOCUMENTS
-</option>
+<label class="small">
+Tujuan Folder
+</label>
 
-<option value="SATKER PUSLAT KODIKLATAU">
-SATKER PUSLAT KODIKLATAU
-</option>
+<input
+id="serverSelect"
+type="text"
 
-</select>
+placeholder=
+"BANK DOCUMENTS/PROGAR"
+
+style="
+width:100%;
+margin-top:6px;
+padding:10px;
+background:black;
+color:#00ff00;
+border:1px solid rgba(255,255,255,.1);
+border-radius:8px">
 
 </div>
         <strong>File dipilih</strong>
@@ -196,9 +206,24 @@ uploadBtn.addEventListener(
 async ()=>{
 
 const folderTujuan =
-document.getElementById(
+document
+.getElementById(
 "serverSelect"
-).value;
+)
+.value
+.trim();
+
+if(
+folderTujuan===""
+){
+
+alert(
+"Isi tujuan folder"
+);
+
+return;
+
+}
 
 if(files.length===0){
 alert("Belum ada file");
