@@ -113,7 +113,43 @@ footer{margin-top:16px;display:flex;justify-content:space-between;align-items:ce
  <div style="margin-top:10px">
 
 <label class="small">
-Tujuan Folder
+Folder Utama
+</label>
+
+<select
+id="rootFolder"
+
+style="
+width:100%;
+margin-top:6px;
+padding:10px;
+background:black;
+color:#00ff00;
+border:1px solid rgba(255,255,255,.1);
+border-radius:8px">
+
+<option value=
+"BANK DOCUMENTS">
+
+BANK DOCUMENTS
+
+</option>
+
+<option value=
+"SATKER PUSLAT KODIKLATAU">
+
+SATKER PUSLAT KODIKLATAU
+
+</option>
+
+</select>
+
+</div>
+
+<div style="margin-top:10px">
+
+<label class="small">
+Sub Folder
 </label>
 
 <input
@@ -121,7 +157,7 @@ id="serverSelect"
 type="text"
 
 placeholder=
-"Contoh: BANK DOCUMENTS/PROGAR"
+"UNSUR PEMBANTU PIMPINAN/PROGAR"
 
 style="
 width:100%;
@@ -191,13 +227,30 @@ uploadBtn.addEventListener(
 "click",
 async ()=>{
 
-const folderTujuan =
+const rootFolder =
+document
+.getElementById(
+"rootFolder"
+)
+.value;
+
+const subFolder =
 document
 .getElementById(
 "serverSelect"
 )
 .value
 .trim();
+
+const folderTujuan =
+
+subFolder===""
+
+? rootFolder
+
+: rootFolder+
+"/"+
+subFolder;
 
 if(
 folderTujuan===""
