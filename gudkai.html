@@ -122,12 +122,15 @@ footer{margin-top:16px;display:flex;justify-content:space-between;align-items:ce
   border:1px solid rgba(255,255,255,.1);
   border-radius:8px">
 
-    <option value="DISOPSLAT/DISLOG/DISPERS/PROGAR/KAKU">
-      BANK DOCUMENTS
-    </option>
-    <option value="DISOPSLAT/DISLOG/DISPERS/PROGAR/KAKU">
-      SATKER PUSLAT KODIKLATAU
-    </option>  
+  <select id="serverSelect">
+  <option value="BANK DOCUMENTS">
+  BANK DOCUMENTS
+  </option>
+  <option value="SATKER PUSLAT KODIKLATAU">
+  SATKER PUSLAT KODIKLATAU
+</option>
+
+</select>  
 
   </select>
 </div>
@@ -149,10 +152,8 @@ footer{margin-top:16px;display:flex;justify-content:space-between;align-items:ce
 </div>
 
 <script>
-const WEBAPPS = {
-"BANK DOKUMENTS":"https://script.google.com/macros/s/AKfycbzl7AhbTKDMMZjcO_xrktmPQsRU6-PjObd0YzAoOFrDT3uOhAhWpyqnn0qF_xYHd61hdQ/exec",
-"SATKER PUSLAT KODIKLATAU":"https://script.google.com/macros/s/AKfycbzl7AhbTKDMMZjcO_xrktmPQsRU6-PjObd0YzAoOFrDT3uOhAhWpyqnn0qF_xYHd61hdQ/exec",
-};
+const WEBAPP_URL =
+"https://script.google.com/macros/s/AKfycbzl7AhbTKDMMZjcO_xrktmPQsRU6-PjObd0YzAoOFrDT3uOhAhWpyqnn0qF_xYHd61hdQ/exec";
 let files = [];
 const drop = document.getElementById("drop");
 const fileInput = document.getElementById("fileInput");
@@ -191,33 +192,10 @@ uploadBtn.addEventListener(
 "click",
 async ()=>{
 
-const tujuan =
+const folderTujuan =
 document.getElementById(
 "serverSelect"
 ).value;
-
-const WEBAPP_URL =
-WEBAPPS[tujuan];
-
-if(!WEBAPP_URL){
-   alert(
-   "Tujuan upload tidak ditemukan"
-   );
-   return;
-}
-
-const folderTujuan = prompt(
-
-`TUJUAN : ${tujuan}
-
-Masukkan folder:
-
-Contoh:
-
-PROGAR/PESAN
-DISLOG/PESAN`
-
-);
 
 if(folderTujuan===null)
 return;
