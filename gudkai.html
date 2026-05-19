@@ -112,27 +112,33 @@ footer{margin-top:16px;display:flex;justify-content:space-between;align-items:ce
         <div style="margin-top:10px">
   <label class="small">Tujuan Upload</label>
 
-  <select id="serverSelect"
-  style="
-  width:100%;
-  margin-top:6px;
-  padding:10px;
-  background:black;
-  color:#00ff00;
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:8px">
+  <div style="margin-top:10px">
 
-  <select id="serverSelect">
-  <option value="BANK DOCUMENTS">
-  BANK DOCUMENTS
-  </option>
-  <option value="SATKER PUSLAT KODIKLATAU">
-  SATKER PUSLAT KODIKLATAU
+<label class="small">
+Tujuan Upload
+</label>
+
+<select id="serverSelect"
+style="
+width:100%;
+margin-top:6px;
+padding:10px;
+background:black;
+color:#00ff00;
+border:1px solid rgba(255,255,255,.1);
+border-radius:8px">
+
+<option value="BANK DOCUMENTS">
+BANK DOCUMENTS
 </option>
 
-</select>  
+<option value="SATKER PUSLAT KODIKLATAU">
+SATKER PUSLAT KODIKLATAU
+</option>
 
-  </select>
+</select>
+
+</div>
 </div>
         <strong>File dipilih</strong>
         <p class="small">Daftar file yang akan diupload.</p>
@@ -322,9 +328,7 @@ return;
 alert(
 
 "UPLOAD BERHASIL\n\n"+
-"TUJUAN : "+
-tujuan+
-"\nFOLDER : "+
+"FOLDER : "+
 folderTujuan
 
 );
