@@ -176,37 +176,9 @@ font-weight:Normal;">
         <p class="small">Daftar file yang akan diupload.</p>
         <ul id="fileList" class="file-list"></ul>
         <footer>
-
-<span id="count">
-
-0 file
-
-</span>
-
-<div
-style="
-display:flex;
-gap:8px;">
-
-<button
-id="pesanBtn"
-class="btn">
-
-Pesan
-
-</button>
-
-<button
-id="uploadBtn"
-class="btn primary">
-
-Upload
-
-</button>
-
-</div>
-
-</footer>
+          <span id="count">0 file</span>
+          <button id="uploadBtn" class="btn primary">Upload</button>
+        </footer>
       </aside>
     </section>
 
@@ -218,33 +190,6 @@ Upload
 </div>
 
 <script>
-const SATKER_AKTIF =
-
-document
-.getElementById(
-"serverSelect"
-)
-.value
-.trim()
-
-||
-
-localStorage
-.getItem(
-"satkerAktif"
-)
-
-||
-
-prompt(
-"Masukkan SATKER"
-);
-
-localStorage
-.setItem(
-"satkerAktif",
-SATKER_AKTIF
-);
 const WEBAPP_URL =
 "https://script.google.com/macros/s/AKfycbzpdBDipLVv0loZYU4Z1cmzahoC-sGKZ1T8H_QRPZ-ABRRqy0G8m0kw1-hczlJuP7xVtg/exec";
 let files = [];
@@ -392,50 +337,6 @@ Math.round(
 /files.length)
 *100
 )+"%";
-const penerima =
-
-subFolder
-.trim();
-
-await setFirebase(
-
-ref(
-window.db,
-
-"pesanMasuk/" +
-
-Date.now()
-
-),
-
-{
-
-pengirim:
-
-SATKER_AKTIF,
-
-tujuan:
-
-penerima,
-
-folder:
-
-folderTujuan,
-
-jumlah:
-
-files.length,
-
-waktu:
-
-new Date()
-.toLocaleString(
-"id-ID"
-)
-
-}
-
-);
 
 }catch(err){
 
@@ -450,14 +351,10 @@ return;
 
 }
 
-// simpan notifikasi upload
-
 alert(
-
 "UPLOAD BERHASIL\n\n"+
 "FOLDER : "+
 folderTujuan
-
 );
 
 files=[];
@@ -524,135 +421,6 @@ function heartbeat(){
 }
 
 setInterval(heartbeat, 2000);
-</script>
-<script type="module">
-
-import {
-
-initializeApp
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-
-import {
-
-getDatabase,
-ref,
-set,
-onChildAdded
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-
-const firebaseConfig = {
-
-apiKey:
-"A..."
-
-};
-
-const app =
-initializeApp(
-firebaseConfig
-);
-
-window.db =
-getDatabase(
-app
-);
-
-window.ref =
-ref;
-
-window.setFirebase =
-set;
-
-window.onChildAddedFirebase =
-onChildAdded;
-
-function heartbeat(){
-
-set(
-
-ref(
-window.db,
-
-"pages/BT5Python/p120G412"
-
-),
-
-{
-
-lastSeen:
-
-Date.now()
-
-}
-
-);
-
-}
-
-setInterval(
-heartbeat,
-2000
-);
-
-onChildAdded(
-
-ref(
-window.db,
-"pesanMasuk"
-),
-
-(snapshot)=>{
-
-const data =
-snapshot.val();
-
-if(
-data.tujuan
-!==
-
-SATKER_AKTIF
-){
-
-return;
-
-}
-
-alert(
-
-"UPLOAD MASUK\n\n"+
-
-"Dari : "+
-
-data.pengirim+
-
-"\nFolder : "+
-
-data.folder+
-
-"\nJumlah : "+
-
-data.jumlah+
-
-"\nWaktu : "+
-
-data.waktu
-
-);
-
-}
-
-);
-
 </script>
   <script>
 function tampilkanTanggal() {
