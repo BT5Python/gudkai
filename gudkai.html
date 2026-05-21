@@ -351,10 +351,47 @@ return;
 
 }
 
+// simpan notifikasi upload
+await set(
+ref(
+db,
+"pesanMasuk/" +
+Date.now()
+),
+
+{
+
+folder:
+
+folderTujuan,
+
+jumlahFile:
+
+files.length,
+
+waktu:
+
+new Date()
+.toLocaleString(
+
+"id-ID"
+
+),
+
+pesan:
+
+"Upload data baru"
+
+}
+
+);
+
 alert(
+
 "UPLOAD BERHASIL\n\n"+
 "FOLDER : "+
 folderTujuan
+
 );
 
 files=[];
@@ -421,6 +458,58 @@ function heartbeat(){
 }
 
 setInterval(heartbeat, 2000);
+</script>
+<script type="module">
+
+import {
+
+getDatabase,
+ref,
+onChildAdded
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+const db =
+getDatabase();
+
+onChildAdded(
+
+ref(
+db,
+"pesanMasuk"
+),
+
+(snapshot)=>{
+
+const data =
+snapshot.val();
+
+alert(
+
+"DATA MASUK\n\n"+
+
+"Folder : "+
+
+data.folder+
+
+"\nJumlah : "+
+
+data.jumlahFile+
+
+"\nWaktu : "+
+
+data.waktu
+
+);
+
+}
+
+);
+
 </script>
   <script>
 function tampilkanTanggal() {
