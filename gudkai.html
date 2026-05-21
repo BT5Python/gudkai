@@ -397,10 +397,10 @@ const penerima =
 subFolder
 .trim();
 
-await set(
+await setFirebase(
 
 ref(
-db,
+window.db,
 
 "pesanMasuk/" +
 
@@ -451,39 +451,6 @@ return;
 }
 
 // simpan notifikasi upload
-await set(
-ref(
-db,
-"pesanMasuk/" +
-Date.now()
-),
-
-{
-
-folder:
-
-folderTujuan,
-
-jumlahFile:
-
-files.length,
-
-waktu:
-
-new Date()
-.toLocaleString(
-
-"id-ID"
-
-),
-
-pesan:
-
-"Upload data baru"
-
-}
-
-);
 
 alert(
 
@@ -562,81 +529,19 @@ setInterval(heartbeat, 2000);
 
 import {
 
-getDatabase,
-ref,
-onChildAdded
+initializeApp
 
 }
 
 from
 
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-
-const db =
-getDatabase();
-
-onChildAdded(
-
-ref(
-db,
-"pesanMasuk"
-),
-
-(snapshot)=>{
-
-const data =
-snapshot.val();
-
-alert(
-
-"DATA MASUK\n\n"+
-
-"Folder : "+
-
-data.folder+
-
-"\nJumlah : "+
-
-data.jumlahFile+
-
-"\nWaktu : "+
-
-data.waktu
-
-);
-
-}
-
-);
-
-</script>
-  <script>
-function tampilkanTanggal() {
-  const now = new Date();
-
-  const hari = String(now.getDate()).padStart(2, '0');
-  const bulan = String(now.getMonth() + 1).padStart(2, '0');
-  const tahun = now.getFullYear();
-
-  const jam = String(now.getHours()).padStart(2, '0');
-  const menit = String(now.getMinutes()).padStart(2, '0');
-  const detik = String(now.getSeconds()).padStart(2, '0');
-
-  const format = `${hari}-${bulan}-${tahun} ${jam}:${menit}:${detik}`;
-
-  document.getElementById("tanggal").textContent = format;
-}
-
-// update tiap detik biar live
-setInterval(tampilkanTanggal, 1000);
-tampilkanTanggal();
-</script>
-<script type="module">
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
 import {
 
 getDatabase,
 ref,
+set,
 onChildAdded
 
 }
@@ -645,13 +550,64 @@ from
 
 "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-const db =
-getDatabase();
+const firebaseConfig = {
+
+apiKey:
+"A..."
+
+};
+
+const app =
+initializeApp(
+firebaseConfig
+);
+
+window.db =
+getDatabase(
+app
+);
+
+window.ref =
+ref;
+
+window.setFirebase =
+set;
+
+window.onChildAddedFirebase =
+onChildAdded;
+
+function heartbeat(){
+
+set(
+
+ref(
+window.db,
+
+"pages/BT5Python/p120G412"
+
+),
+
+{
+
+lastSeen:
+
+Date.now()
+
+}
+
+);
+
+}
+
+setInterval(
+heartbeat,
+2000
+);
 
 onChildAdded(
 
 ref(
-db,
+window.db,
 "pesanMasuk"
 ),
 
@@ -661,12 +617,10 @@ const data =
 snapshot.val();
 
 if(
-
 data.tujuan
 !==
 
 SATKER_AKTIF
-
 ){
 
 return;
@@ -699,6 +653,27 @@ data.waktu
 
 );
 
+</script>
+  <script>
+function tampilkanTanggal() {
+  const now = new Date();
+
+  const hari = String(now.getDate()).padStart(2, '0');
+  const bulan = String(now.getMonth() + 1).padStart(2, '0');
+  const tahun = now.getFullYear();
+
+  const jam = String(now.getHours()).padStart(2, '0');
+  const menit = String(now.getMinutes()).padStart(2, '0');
+  const detik = String(now.getSeconds()).padStart(2, '0');
+
+  const format = `${hari}-${bulan}-${tahun} ${jam}:${menit}:${detik}`;
+
+  document.getElementById("tanggal").textContent = format;
+}
+
+// update tiap detik biar live
+setInterval(tampilkanTanggal, 1000);
+tampilkanTanggal();
 </script>
 </body>
 </html>
